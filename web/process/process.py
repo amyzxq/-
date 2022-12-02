@@ -12,7 +12,7 @@ from .visualize import visualize, reverse_normalize
 import os, csv, codecs, torch, heapq
 from web.process import vgg16
 from .fanxiang import GradCam, rot180, backpro
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 normalize = transforms.Normalize(
     mean = [0.485, 0.456, 0.406],
@@ -36,7 +36,7 @@ def classification(picname):
         return: 
             图片所属类别
     '''
-    dirname = '/root/jzb/web/static'  # 图片保存的路径
+    dirname = '/workspace/web/static'  # 图片保存的路径
     picturepath = os.path.join(dirname, picname)
     picture = Image.open(picturepath)
     tensor = preprocess(picture)
@@ -47,7 +47,7 @@ def classification(picname):
     # 分类
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     vgg = vgg16.VGG16(num_classes=2).to(device)
-    vgg.load_state_dict(torch.load('/root/jzb/web/model/picmodel.pt'))    # 加载模型
+    vgg.load_state_dict(torch.load('/workspace/web/model/picmodel.pt'))    # 加载模型
     vgg.eval()  
     score = vgg(tensor)
     pred = score.argmax(dim=1)
@@ -195,7 +195,7 @@ def relationunit(index, unitclasses, picname):
     for name,parameters in model.named_parameters():
         if ('feature' in name) and ('weight' in name):
             weights.append(parameters)
-    dirname = '/root/jzb/web/static'
+    dirname = '/workspace/web/static'
     picturepath = os.path.join(dirname, picname)
     picture = Image.open(picturepath)
     tensor = preprocess(picture)
@@ -263,7 +263,7 @@ def writeCSV(claname, layer, index, weights, unitclasses, feature_list):
             j += 1    
             flag.append(unitclasses[i])
 
-    f = codecs.open('/root/jzb/web/model/result.csv','w','gbk')
+    f = codecs.open('/workspace/web/model/result.csv','w','gbk')
     writer = csv.writer(f)
     for i in message:
         writer.writerow(i)

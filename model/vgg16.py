@@ -55,7 +55,7 @@ class VGG16(nn.Module):
         in_size = out.size(0)
         out= self.features (out)
         out = self.avgpool (out)
-        out = out.view(in_size, -1)#拉平
+        out = out.view(in_size, -1)
         out = self.classifier(out)
         return out
     
@@ -63,7 +63,7 @@ class VGG16(nn.Module):
         in_size = x.size(0)
         
         out = self.avgpool (x)
-        out = x.view(in_size, -1)#拉平
+        out = x.view(in_size, -1)
         out = self.classifier(out)
         return out
     

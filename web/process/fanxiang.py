@@ -16,7 +16,7 @@ from PIL import Image
 import torch.nn.functional as F
 from torchvision.utils import save_image
 import numpy as np
-os.environ["CUDA_VISIBLE_DEVICES"]='5'
+os.environ["CUDA_VISIBLE_DEVICES"]='0'
 
 
 

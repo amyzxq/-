@@ -8,7 +8,7 @@ def upload_image(request):
     # 将图片上传到服务器上
     if(request.method == 'POST'):
         print('the POST method')
-        path = '/root/jzb/web/static'
+        path = '/workspace/web/static'
         for i in os.listdir(path):
             path_file = os.path.join(path,i)
             os.remove(path_file)

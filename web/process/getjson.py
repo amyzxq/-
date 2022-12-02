@@ -1,10 +1,10 @@
-# 获取前端知识图谱的json
+# 获取前端的json
 import os
 import json
 
 def getJson(node_identity, node_relationship, node_labels, describe, jsonname):
     """
-    知识图谱内容：
+    前端内容：
     names: ['结果', '权重', '功能', '层数', '神经元'],
     labels: ['Result', 'Weight', 'Function', 'Layer', 'Unit'],
     linkTypes: ['', 'weight', 'function', 'layer','unit']
@@ -15,7 +15,7 @@ def getJson(node_identity, node_relationship, node_labels, describe, jsonname):
     describe: 分类结果的描述
     """ 
     print("try to creat json...")
-    path = os.path.join("/root/jzb/web/src/data", 'result.json')
+    path = os.path.join("/workspace/web/src/data", 'result.json')
     if os.path.exists(path):
         os.remove(path)  
     with open(path, "w", encoding="utf-8") as f:
@@ -92,7 +92,7 @@ def promessage(claname, message):
     for tmp in message:
         # <class 'tuple'>
         # ('飞机', '关键神经元', '207')
-        # 先将每个节点表上序号，不能重复
+        # 先将每个节点标上序号，不能重复
         if tmp[0] not in node_identity: 
             node_identity[str(tmp[0])] = i
             i += 1
@@ -134,7 +134,7 @@ def promessage(claname, message):
     node_identity['cam.jpg'] = i
     node_labels['cam.jpg'] = 'Unit'
     """
-    生成对应的解释性语句：
+    生成对应的解释性语句，例：
     结果识别为：飞机
     原因：从整体情况而言，网络检测出飞机的轮廓，而对于关键语义信息而言，网络检测出图像包含机头、机翼、机尾等信息。
     其中机头主要是在高层语义第6神经元检测到，权重为0.23，

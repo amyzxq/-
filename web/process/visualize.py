@@ -31,6 +31,6 @@ def visualize(img, cam):
     heatmap = heatmap.float() / 255
     b, g, r = heatmap.split(1)
     heatmap = torch.cat([r, g, b])
-    save_image(heatmap, os.path.join('/root/jzb/web/static', 'cam.jpg'))
+    save_image(heatmap, os.path.join('/workspace/web/static', 'cam.jpg'))
 
 
