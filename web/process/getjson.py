@@ -133,15 +133,7 @@ def promessage(claname, message):
     node_relationship.append(claname+":img:cam.jpg")
     node_identity['cam.jpg'] = i
     node_labels['cam.jpg'] = 'Unit'
-    """
-    生成对应的解释性语句，例：
-    结果识别为：飞机
-    原因：从整体情况而言，网络检测出飞机的轮廓，而对于关键语义信息而言，网络检测出图像包含机头、机翼、机尾等信息。
-    其中机头主要是在高层语义第6神经元检测到，权重为0.23，
-    机尾主要是在高层语义第189神经元检测到，权重为0.34，
-    机翼主要是在高层语义第400神经元检测到，权重为0.31。
-    综合以上因素，该深度神经元网络模型将该图片识别为飞机。
-    """
+
     describe = "结果识别为："+claname
     describe = describe + '。原因：从整体情况而言，网络检测出' +claname+'的轮廓，而对于关键语义信息而言，网络检测出图像包含'+str(list(relation.keys()))+'等信息。其中'
     i = 0
@@ -151,25 +143,25 @@ def promessage(claname, message):
     print(relation.keys())
     describe = describe + "综合以上因素，该深度神经元网络模型将该图片识别为" +claname+"。"
     return node_labels, node_identity, node_relationship, describe
-if __name__ == '__main__':
-    node_identity = {"tank": 1, "183":2, "21":3, "56":4, "165":5, "233":6, "254":7, "435":8, "111":9, "478":10, "501":11, "54":12,  "123":13, "174":14, "321":15,
-                     "214": 16, "384":17, "495":18, "247":19, "164":20, "230":21, "0.23":22, "0.31":23, "0.45":24, "0.32":25, "0.21":26, "0.22":27,  "驾驶舱":28, "防浪板":29, "炮筒":30,
-                     "28": 31, "26":32, "28c183.jpg":33, "28c111.jpg":34, "26c123.jpg":35, "26c321.jpg":36,"26c214.jpg":37, "26c495.jpg":38,"26c247.jpg":39,"28c165.jpg":40,"0.34":41,"cam.jpg":42}
-    node_labels = {"tank": 'Result',
-                   "183":'impUnit', "21":'Unit', "56":'Unit', "165":'impUnit', "233":'Unit', "254":'Unit', "435":'Unit', "111":'impUnit', "478":'Unit', "501":'Unit',
-                   "54":'Unit', "123":'impUnit', "174":'Unit', "321":'impUnit', "214":'impUnit', "384":'Unit', "495":'impUnit', "247":'impUnit', "164":'Unit', "230":'Unit',
-                   "0.23":'Weight', "0.34":'Weight',"0.31":'Weight',"0.45":'Weight',"0.32":'Weight',"0.21":'Weight',"0.22":'Weight',"驾驶舱":'Function',"防浪板":'Function',"炮筒":'Function',"28":'Layer',"28c183.jpg":"Unit","28c165.jpg":"Unit","26c247.jpg":"Unit",
-                   "26":'Layer',"28c111.jpg":"Unit","26c123.jpg":"Unit","26c321.jpg":"Unit","26c214.jpg":"Unit","26c495.jpg":"Unit","cam.jpg":"Unit"}
-    node_relationship = ["tank:impunit:183", "tank:unit:21", "tank:unit:56", "tank:impunit:165","tank:unit:233", "tank:unit:254", "tank:unit:435", "tank:impunit:111","tank:unit:478", "tank:unit:501",
-                         "183:impunit:123", "183:impunit:321", "183:impunit:214", "111:impunit:321", "111:impunit:247", "165:impunit:495", "111:impunit:123", "165:impunit:247", "165:impunit:495",
-                         "183:weight:0.23", "183:function:驾驶舱", "183:layer:28","183:img:28c183.jpg",
-                         "165:weight:0.34", "165:function:防浪板", "165:layer:28","165:img:28c165.jpg",
-                         "111:weight:0.31", "111:function:炮筒", "111:layer:28","111:img:28c111.jpg",
-                         "123:weight:0.45",  "123:layer:26","123:img:26c123.jpg",
-                         "321:weight:0.32",  "321:layer:26","321:img:26c321.jpg",
-                         "214:weight:0.21",  "214:layer:26","214:img:26c214.jpg",
-                         "495:weight:0.22",  "495:layer:26","495:img:26c495.jpg",
-                         "247:weight:0.21",  "247:layer:26","247:img:26c247.jpg",
-                         "tank:img:cam.jpg"]
-    describe = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-    getJson(node_identity, node_relationship, node_labels, describe)
+# if __name__ == '__main__':
+#     node_identity = {"tank": 1, "183":2, "21":3, "56":4, "165":5, "233":6, "254":7, "435":8, "111":9, "478":10, "501":11, "54":12,  "123":13, "174":14, "321":15,
+#                      "214": 16, "384":17, "495":18, "247":19, "164":20, "230":21, "0.23":22, "0.31":23, "0.45":24, "0.32":25, "0.21":26, "0.22":27,  "驾驶舱":28, "防浪板":29, "炮筒":30,
+#                      "28": 31, "26":32, "28c183.jpg":33, "28c111.jpg":34, "26c123.jpg":35, "26c321.jpg":36,"26c214.jpg":37, "26c495.jpg":38,"26c247.jpg":39,"28c165.jpg":40,"0.34":41,"cam.jpg":42}
+#     node_labels = {"tank": 'Result',
+#                    "183":'impUnit', "21":'Unit', "56":'Unit', "165":'impUnit', "233":'Unit', "254":'Unit', "435":'Unit', "111":'impUnit', "478":'Unit', "501":'Unit',
+#                    "54":'Unit', "123":'impUnit', "174":'Unit', "321":'impUnit', "214":'impUnit', "384":'Unit', "495":'impUnit', "247":'impUnit', "164":'Unit', "230":'Unit',
+#                    "0.23":'Weight', "0.34":'Weight',"0.31":'Weight',"0.45":'Weight',"0.32":'Weight',"0.21":'Weight',"0.22":'Weight',"驾驶舱":'Function',"防浪板":'Function',"炮筒":'Function',"28":'Layer',"28c183.jpg":"Unit","28c165.jpg":"Unit","26c247.jpg":"Unit",
+#                    "26":'Layer',"28c111.jpg":"Unit","26c123.jpg":"Unit","26c321.jpg":"Unit","26c214.jpg":"Unit","26c495.jpg":"Unit","cam.jpg":"Unit"}
+#     node_relationship = ["tank:impunit:183", "tank:unit:21", "tank:unit:56", "tank:impunit:165","tank:unit:233", "tank:unit:254", "tank:unit:435", "tank:impunit:111","tank:unit:478", "tank:unit:501",
+#                          "183:impunit:123", "183:impunit:321", "183:impunit:214", "111:impunit:321", "111:impunit:247", "165:impunit:495", "111:impunit:123", "165:impunit:247", "165:impunit:495",
+#                          "183:weight:0.23", "183:function:驾驶舱", "183:layer:28","183:img:28c183.jpg",
+#                          "165:weight:0.34", "165:function:防浪板", "165:layer:28","165:img:28c165.jpg",
+#                          "111:weight:0.31", "111:function:炮筒", "111:layer:28","111:img:28c111.jpg",
+#                          "123:weight:0.45",  "123:layer:26","123:img:26c123.jpg",
+#                          "321:weight:0.32",  "321:layer:26","321:img:26c321.jpg",
+#                          "214:weight:0.21",  "214:layer:26","214:img:26c214.jpg",
+#                          "495:weight:0.22",  "495:layer:26","495:img:26c495.jpg",
+#                          "247:weight:0.21",  "247:layer:26","247:img:26c247.jpg",
+#                          "tank:img:cam.jpg"]
+#     describe = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+#     getJson(node_identity, node_relationship, node_labels, describe)

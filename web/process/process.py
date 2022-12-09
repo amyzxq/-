@@ -65,12 +65,12 @@ def unitclassification(picclass, layer, index):
     labels = {0:"机身", 1:"机头", 2:"其他", 3:"机尾", 4:"机翼", 5:"轮胎", 6:"防浪板", 7:"驾驶舱", 8:"履带", 9:"炮筒", 10:"天线"}
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     vgg = vgg16.VGG16(num_classes=11).to(device)
-    vgg.load_state_dict(torch.load('/root/jzb/web/model/pre_model.pt'))  
+    vgg.load_state_dict(torch.load('/workspace/web/model/pre_model.pt'))
     # vgg = torch.load('/root/jzb/shiyan2/data/model.pkl')  #加载模型
     vgg.eval()  
     unitclasses = []
     for i in index:
-        unitpath = os.path.join('/root/jzb/web/static',str(layer)+'C'+str(i)+'.jpg')
+        unitpath = os.path.join('/workspace/web/static',str(layer)+'C'+str(i)+'.jpg')
         picture = Image.open(unitpath)
         tensor = preprocess(picture)
         tensor = tensor.unsqueeze(0)
@@ -100,7 +100,7 @@ def hcscorecam(picname):
     return:
         hcscorecam图
     '''
-    dirname = '/root/jzb/web/static'
+    dirname = '//workspace/web/static'
     picturepath = os.path.join(dirname, picname)
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     score_saliency_map = torch.zeros((1, 1, 224, 224))
@@ -155,7 +155,7 @@ def hcscorecam(picname):
         np.putmask(heatmap, heatmap <= max_pixel * 0.55, 0.)
         heatmap = torch.from_numpy(heatmap)
         image = torch.mul(picture, heatmap)
-        save_image(image, os.path.join('/root/jzb/web/static',str(i)+'C'+str(j)+'.jpg'))
+        save_image(image, os.path.join('/workspace/web/static',str(i)+'C'+str(j)+'.jpg'))
 
     return layers[-1], max_num_index_score, weights
 
@@ -225,7 +225,7 @@ def relationunit(index, unitclasses, picname):
             flag.append(unitclasses[i])
     return  feature_list
 
-def writeCSV(claname, layer, index, weights, unitclasses, feature_list):
+def writeCSV(air,tank,claname, layer, index, weights, unitclasses, feature_list):
     '''
         将获取到的信息保存在csv文件中
 
@@ -240,8 +240,7 @@ def writeCSV(claname, layer, index, weights, unitclasses, feature_list):
             csv信息
 
     '''
-    air = ['6','51','93','105','112','137','143','176','207','289']
-    tank = ['127','128','165','183','369','416','448','472','490','495']
+
     flag = [] 
     message = []
     # tmp = [['213','43'],['67','341'],['76','56'],['126','432'],['41','433'],['314','286'],['23','4'],['465','422']]
@@ -270,7 +269,7 @@ def writeCSV(claname, layer, index, weights, unitclasses, feature_list):
     f.close()
     return message
 
-if __name__ == '__main__':
-    classification('tank_1.jpg')
+# if __name__ == '__main__':
+#     classification('tank_1.jpg')
 
 
