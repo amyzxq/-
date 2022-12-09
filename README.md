@@ -1,1 +1,0 @@
-python manage.py runserver & npm run serve
